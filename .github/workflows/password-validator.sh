@@ -5,6 +5,18 @@ counter=0
 
 password="$1"
 
+if [[ $password =~ "-f" ]]; then
+    
+    password=$(echo "$password" | tr -d '"','f ','-')
+    if cat $password; then
+        password=$(cat $password)
+    else
+        echo "we where unable to open yout' path"
+        exit
+    fi
+fi
+
+
 if (("${#password}" < 10)); then
 
   echo $(tput setaf 1)"you need at least 10 characters."$(tput sgr0)
@@ -43,4 +55,5 @@ if [ "$counter" = 0 ]; then
 else
   echo $(tput setaf 1)exit code 1$(tput sgr0)
 fi
+
 
