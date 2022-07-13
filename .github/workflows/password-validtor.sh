@@ -5,9 +5,6 @@ counter=0
 
 password="$1"
 
-fi
-
-
 if (("${#password}" < 10)); then
 
   echo $(tput setaf 1)"you need at least 10 characters."$(tput sgr0)
