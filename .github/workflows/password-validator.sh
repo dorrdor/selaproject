@@ -1,46 +1,41 @@
-#!/bin/bash
-#date: 6/7/22
+#!/bin/ps1
+#Date: 10/7/22
 #Athor: Dor Ross
-counter=0
+$counter = 0
+$password=$args[0]
 
-password="$1"
 
-if (("${#password}" < 10)); then
+if ($password -like "*-f*") {
+    $password=$password.Replace("-f ","")
+    $password=$password.Replace("""","")
+    $password = Get-Content -Path $password
+}
 
-  echo $(tput setaf 1)"you need at least 10 characters."$(tput sgr0)
-  counter=$((counter = 1))
+if ($password.Length -le 10) 
+{ Write-Host "you need at least 10 characters."  -ForegroundColor red 
+  $counter = 1 }
 
-fi
 
-if [[ $password =~ [0-9] ]]; then
-  :
+if ($password -match '\d')
+{}
 else
+{ Write-Host "You need to use numbers"  -ForegroundColor red 
+  $counter = 1} 
 
-  echo $(tput setaf 1)"You need to use numbers"$(tput sgr0)
-  counter=$((counter = 1))
-fi
+if ($password -cmatch "[a-z]")
+{}
+else 
+{ Write-Host "You need to use lowecase letters"  -ForegroundColor red 
+  $counter = 1 }
 
-if [[ $password =~ [a-z] ]]; then
-  :
-else
+if ($password -cmatch "[A-Z]")
+{}
+else 
+{ Write-Host "You need to use uppercase letters"  -ForegroundColor red     
+  $counter = 1 }
 
-  echo $(tput setaf 1)"You need to use lowercase letters"$(tput sgr0) 
-  counter=$((counter = 1))
-
-fi
-if [[ $password =~ [A-Z] ]]; then
-  :
-else
-
-  echo $(tput setaf 1)"You need to use uppercase letters"$(tput sgr0)
-  counter=$((counter = 1))
-
-fi
-if [ "$counter" = 0 ]; then
-
-  echo $(tput setaf 2)exit code 0$(tput sgr0)
-
-else
-  echo $(tput setaf 1)exit code 1$(tput sgr0)
-fi
+if ($counter -eq 1) 
+{ Write-Host "exit code 1"  -ForegroundColor red }
+else 
+{ Write-Host "exit code 0"  -ForegroundColor green }
 
