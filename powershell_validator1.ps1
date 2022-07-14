@@ -33,8 +33,13 @@ if ($password -cmatch "[A-Z]")
 else 
 { Write-Host "You need to use uppercase letters"  -ForegroundColor red     
   $counter = 1 }
+$counter=$?
+#echo $counter
+if ($counter -eq 0) 
 
-if ($counter -eq 1) 
-{ Write-Host "exit code 1"  -ForegroundColor red }
-else 
-{ Write-Host "exit code 0"  -ForegroundColor green }
+
+#{ Write-Host "exit code 1"  -ForegroundColor red }
+
+#{ Write-Host "exit code 0"  -ForegroundColor green }
+
+exit $counter
