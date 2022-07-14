@@ -36,11 +36,12 @@ else
   counter=$((counter = 1))
 
 fi
-if [ "$counter" = 0 ]; then
+counter=$?
+if ("$counter" = 0 ); then
 
-  echo $(tput setaf 2)exit code 0$(tput sgr0)
+  echo $(tput setaf 2)"exit code: 0"$(tput sgr0)
 
 else
-  echo $(tput setaf 1)exit code 1$(tput sgr0)
+  echo $(tput setaf 1)"exit code: 1"$(tput sgr0)
 fi
-
+exit $counter
